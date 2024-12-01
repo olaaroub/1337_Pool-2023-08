@@ -1,26 +1,32 @@
-CC = CC
-FLAGS = -Wall -Wextra -Werror -I./includes
-AR = ar crs
-RM = rm -rf
-FILES = srcs/ft_putchar srcs/ft_strcmp srcs/ft_putstr srcs/ft_swap srcs/ft_strlen
-SRC = $(FILES:=.c)
-OBJ = $(FILES:=.o)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: olaaroub <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/06 17:07:05 by olaaroub          #+#    #+#              #
+#    Updated: 2023/09/06 17:07:14 by olaaroub         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = cc
+FLAGS	= -Wall -Werror -Wextra -I includes
+RM = rm -f
 LIB = libft.a
 
-.PHONY: all clean fclean re
-
 all: $(LIB)
-	
-$(LIB): $(OBJ)
-	$(AR) $(LIB) $(OBJ)
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+$(LIB):
+	$(CC) $(FLAGS) -c srcs/ft_putchar.c -o srcs/ft_putchar.o
+	$(CC) $(FLAGS) -c srcs/ft_swap.c -o srcs/ft_swap.o
+	$(CC) $(FLAGS) -c srcs/ft_putstr.c -o srcs/ft_putstr.o
+	$(CC) $(FLAGS) -c srcs/ft_strlen.c -o srcs/ft_strlen.o
+	$(CC) $(FLAGS) -c srcs/ft_strcmp.c -o srcs/ft_strcmp.o
+	ar rcs $(LIB) srcs/ft_putchar.o srcs/ft_swap.o srcs/ft_putstr.o srcs/ft_strlen.o srcs/ft_strcmp.o
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) srcs/ft_putchar.o srcs/ft_swap.o srcs/ft_putstr.o srcs/ft_strlen.o srcs/ft_strcmp.o
 
-fclean: clean
+fclean:
 	$(RM) $(LIB)
-
-re: fclean all
